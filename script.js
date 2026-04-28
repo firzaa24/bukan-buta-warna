@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+  function clamp(value) {
+    return Math.max(0, Math.min(255, value));
+  }
+
+  function getGridSize() {
+    return Math.min(2 + level, 8);
+  }
+
+  function generateColors() {
+    const baseR = Math.floor(Math.random() * 200);
+    const baseG = Math.floor(Math.random() * 200);
+    const baseB = Math.floor(Math.random() * 200);
 
     const diff = Math.max(3, 40 - level * 3);
 
@@ -9,7 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function startTimer() {
-    clearInterval(timer);
+    if (timer) clearInterval(timer);
+
     timeLeft = Math.max(2, 6 - Math.floor(level / 2));
     timerDisplay.textContent = timeLeft;
 
@@ -47,9 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
           score++;
           level++;
           updateUI();
+          startTimer();
           createBoard();
-          startTimer(); // reset timer setiap naik level
-        }
         } else {
           alert('Wrong! Game Over');
           resetGame();
@@ -72,9 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
     updateUI();
     gameArea.innerHTML = '';
     timerDisplay.textContent = 0;
+    if (timer) clearInterval(timer);
   }
 
   startBtn.addEventListener('click', () => {
+    console.log('Start button clicked');
     gameStarted = true;
     score = 0;
     level = 1;
