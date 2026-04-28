@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    const diff = Math.max(3, 40 - level * 3);
+
+    return {
+      normal: `rgb(${baseR}, ${baseG}, ${baseB})`,
+      different: `rgb(${clamp(baseR + diff)}, ${clamp(baseG + diff)}, ${clamp(baseB + diff)})`
     };
   }
 
@@ -42,7 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
           level++;
           updateUI();
           createBoard();
-          startTimer();
+          startTimer(); // reset timer setiap naik level
+        }
         } else {
           alert('Wrong! Game Over');
           resetGame();
