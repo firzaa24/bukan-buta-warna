@@ -1,32 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const gameArea = document.getElementById('gameArea');
-  const scoreDisplay = document.getElementById('score');
-  const levelDisplay = document.getElementById('level');
-  const timerDisplay = document.getElementById('timer');
-
-  let score = 0;
-  let level = 1;
-  let timer;
-  let timeLeft = 5;
-
-  function clamp(value) {
-    return Math.max(0, Math.min(255, value));
-  }
-
-  function getGridSize() {
-    return Math.min(2 + level, 8);
-  }
-
-  function generateColors() {
-    const baseR = Math.floor(Math.random() * 200);
-    const baseG = Math.floor(Math.random() * 200);
-    const baseB = Math.floor(Math.random() * 200);
-
-    const diff = Math.max(3, 40 - level * 3);
-
-    return {
-      normal: `rgb(${baseR}, ${baseG}, ${baseB})`,
-      different: `rgb(${clamp(baseR + diff)}, ${clamp(baseG + diff)}, ${clamp(baseB + diff)})`
     };
   }
 
@@ -63,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tile.style.backgroundColor = (i === differentIndex) ? different : normal;
 
       tile.addEventListener('click', () => {
+        if (!gameStarted) return;
+
         if (i === differentIndex) {
           score++;
           level++;
@@ -85,14 +59,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function resetGame() {
+    gameStarted = false;
+    score = 0;
+    level = 1;
+    updateUI();
+    gameArea.innerHTML = '';
+    timerDisplay.textContent = 0;
+  }
+
+  startBtn.addEventListener('click', () => {
+    gameStarted = true;
     score = 0;
     level = 1;
     updateUI();
     createBoard();
     startTimer();
-  }
-
-  updateUI();
-  createBoard();
-  startTimer();
+  });
 });
