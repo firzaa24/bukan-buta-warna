@@ -13,6 +13,8 @@ body {
 .tile {
   width: 60px;
   height: 60px;
-  border-radius: 8px;
   cursor: pointer;
+  border-radius: 8px;
+  display: block;
 }
+
