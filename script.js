@@ -1,10 +1,11 @@
 const gameArea = document.getElementById('gameArea');
-  const baseB = Math.floor(Math.random() * 200);
-
-  const diff = Math.max(3, 40 - level * 3); // makin kecil → makin susah
+  const diff = Math.max(3, 40 - level * 3);
 
   return {
     normal: `rgb(${baseR}, ${baseG}, ${baseB})`,
+    different: `rgb(${clamp(baseR + diff)}, ${clamp(baseG + diff)}, ${clamp(baseB + diff)})`
+  };
+}, ${baseG}, ${baseB})`,
     different: `rgb(${baseR + diff}, ${baseG + diff}, ${baseB + diff})`
   };
 }
